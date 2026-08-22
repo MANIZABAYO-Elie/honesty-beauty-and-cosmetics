@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Fashion Brand: Pink #EC4899 / Purple #8B5CF6 / CTA #7C3AED */
+    --background: 330 100% 99%;       /* #FFF7FB */
+    --foreground: 220 14% 12%;        /* #1F2937 */
+    --card: 0 0% 100%;                /* #FFFFFF */
+    --card-foreground: 220 14% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 14% 12%;
+    --primary: 330 81% 60%;           /* #EC4899 pink */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 258 90% 66%;         /* #8B5CF6 purple */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 330 40% 96%;
+    --muted-foreground: 220 9% 46%;   /* #6B7280 */
+    --accent: 258 90% 66%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 13% 91%;            /* #E5E7EB */
+    --input: 220 13% 91%;
+    --ring: 330 81% 60%;
+    --cta: 263 75% 56%;               /* #7C3AED deep purple CTA */
+    --cta-hover: 263 75% 48%;         /* #6D28D9 */
+    --chart-1: 330 81% 60%;
+    --chart-2: 258 90% 66%;
+    --chart-3: 38 92% 50%;
+    --chart-4: 263 75% 56%;
+    --chart-5: 340 75% 55%;
+    --radius: 0.75rem;
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+  }
+  .dark {
+    --background: 260 20% 8%;
+    --foreground: 210 40% 98%;
+    --card: 260 20% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 260 20% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 330 81% 65%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 258 90% 70%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 260 20% 16%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 258 90% 70%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 260 20% 20%;
+    --input: 260 20% 20%;
+    --ring: 330 81% 65%;
+    --cta: 263 75% 60%;
+    --cta-hover: 263 75% 52%;
+    --chart-1: 330 81% 65%;
+    --chart-2: 258 90% 70%;
+    --chart-3: 38 92% 50%;
+    --chart-4: 263 75% 60%;
+    --chart-5: 340 75% 55%;
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-[#EC4899] to-[#8B5CF6] bg-clip-text text-transparent;
+  }
+  .btn-cta {
+    @apply bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold rounded-xl px-6 py-3 transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5;
+  }
+  .gradient-brand {
+    background: linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%);
+  }
+  .bg-grid {
+    background-image: linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--border)) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .bg-dots {
+    background-image: radial-gradient(hsl(var(--border)) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .container-px {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply py-16 sm:py-20 lg:py-28;
+  }
+}
