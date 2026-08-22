@@ -22,26 +22,26 @@ export default function SettingsPage() {
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="company-name">Company Name</Label>
-              <Input id="company-name" defaultValue="Nexus Labs" />
+              <Input id="company-name" defaultValue="Honest Beauty and Cosmetics Ltd" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="company-email">Contact Email</Label>
-              <Input id="company-email" type="email" defaultValue="hello@nexuslabs.com" />
+              <Input id="company-email" type="email" defaultValue="hello@honestbeauty.com" />
             </div>
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="company-phone">Phone</Label>
-              <Input id="company-phone" defaultValue="+1 (555) 010-0000" />
+              <Input id="company-phone" defaultValue="+250 788 000 000" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="company-hours">Business Hours</Label>
-              <Input id="company-hours" defaultValue="Mon - Fri: 9AM - 6PM PST" />
+              <Input id="company-hours" defaultValue="Mon – Sat: 9:00 – 18:00" />
             </div>
           </div>
           <div className="space-y-2">
             <Label htmlFor="company-address">Address</Label>
-            <Textarea id="company-address" rows={2} defaultValue="100 Innovation Drive, San Francisco, CA 94016" />
+            <Textarea id="company-address" rows={2} defaultValue="Kigali, Rwanda" />
           </div>
           <Button onClick={() => toast.success("Settings saved.")}>
             <Save className="h-4 w-4 mr-2" />
@@ -55,11 +55,11 @@ export default function SettingsPage() {
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="meta-title">Meta Title</Label>
-            <Input id="meta-title" defaultValue="Nexus Labs — Building Tomorrow's Technology" />
+            <Input id="meta-title" defaultValue="Honest Beauty and Cosmetics Ltd — Premium Beauty & Skincare" />
           </div>
           <div className="space-y-2">
             <Label htmlFor="meta-description">Meta Description</Label>
-            <Textarea id="meta-description" rows={3} defaultValue="Nexus Labs designs and manufactures premium tech products." />
+            <Textarea id="meta-description" rows={3} defaultValue="Premium beauty and cosmetics — honest ingredients, dermatologist-tested formulas, made for everyday confidence." />
           </div>
           <Button onClick={() => toast.success("SEO settings saved.")}>
             <Save className="h-4 w-4 mr-2" />

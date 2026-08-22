@@ -109,7 +109,7 @@ export default function ProductDetailPage() {
               <Card className="p-6 mb-6">
                 <h3 className="font-semibold mb-4">Specifications</h3>
                 <dl className="grid grid-cols-2 gap-4 text-sm">
-                  <div><dt className="text-muted-foreground mb-1">Brand</dt><dd className="font-medium">{product.brand ?? "Nexus Labs"}</dd></div>
+                  <div><dt className="text-muted-foreground mb-1">Brand</dt><dd className="font-medium">{product.brand ?? "—"}</dd></div>
                   <div><dt className="text-muted-foreground mb-1">SKU</dt><dd className="font-medium">{product.sku ?? "N/A"}</dd></div>
                   <div><dt className="text-muted-foreground mb-1">Stock</dt><dd className="font-medium">{product.stock > 0 ? `${product.stock} available` : "Out of stock"}</dd></div>
                   <div><dt className="text-muted-foreground mb-1">Category</dt><dd className="font-medium">{product.category?.name ?? "Uncategorized"}</dd></div>

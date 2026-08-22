@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/admin", "/login"],
     },
-    sitemap: "https://nexuslabs.com/sitemap.xml",
+    sitemap: "https://honestbeauty.com/sitemap.xml",
   };
 }

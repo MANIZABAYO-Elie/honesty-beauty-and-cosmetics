@@ -4,12 +4,14 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Flower2, Mail, Lock, ArrowRight, Loader2 } from "lucide-react";
+import { Mail, Lock, ArrowRight, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
+import { BrandLogo } from "@/components/brand/BrandLogo";
+import { PoweredByGorillaNexa } from "@/components/brand/PoweredByGorillaNexa";
 import { toast } from "sonner";
 import { useAuth } from "@/components/providers/auth-provider";
 
@@ -51,53 +53,70 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-muted/30 px-4 relative">
-      <div className="absolute top-4 right-4"><ThemeToggle /></div>
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4" />
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md relative">
-        <Link href="/" className="flex items-center justify-center gap-2 font-bold text-xl mb-8">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-            <Flower2 className="h-6 w-6" />
-          </div>
-          <div className="text-center leading-tight">
-            <p className="font-bold text-sm">Honest Beauty</p>
-            <p className="text-[#EC4899] font-semibold text-xs">and Cosmetics Ltd</p>
-          </div>
-        </Link>
-        <Card className="p-8">
-          <div className="mb-6">
-            <h1 className="text-2xl font-bold text-center mb-1">Admin Login</h1>
-            <p className="text-sm text-muted-foreground text-center">Sign in to access the admin dashboard</p>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#FAFAFA] px-4 relative dark:bg-zinc-950">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
+      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md relative">
+        <div className="mb-8 flex justify-center">
+          <BrandLogo href="/" size="md" />
+        </div>
+        <Card className="border-zinc-200/80 p-8 shadow-sm dark:border-zinc-800">
+          <div className="mb-6 text-center">
+            <h1 className="text-2xl font-bold">Admin login</h1>
+            <p className="mt-1 text-sm text-muted-foreground">Sign in to manage your store</p>
           </div>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input id="email" type="email" placeholder="admin@nexuslabs.com" value={email} onChange={(e) => setEmail(e.target.value)} className="pl-10" required />
+                <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="admin@honestbeauty.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="pl-10"
+                  required
+                />
               </div>
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input id="password" type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} className="pl-10" required />
+                <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="pl-10"
+                  required
+                />
               </div>
             </div>
-            <Button type="submit" className="w-full" size="lg" disabled={loading}>
-              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <><span>Sign In</span><ArrowRight className="ml-2 h-4 w-4" /></>}
+            <Button type="submit" className="w-full rounded-lg" size="lg" disabled={loading}>
+              {loading ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <>
+                  <span>Sign in</span>
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </>
+              )}
             </Button>
           </form>
-          <div className="mt-6 p-4 rounded-lg bg-muted/50 border border-border">
-            <p className="text-xs text-muted-foreground text-center">
-              <span className="font-semibold text-foreground">Demo credentials:</span><br />
-              admin@honestbeauty.com / Admin12345!
-            </p>
-          </div>
         </Card>
-        <p className="text-center mt-6 text-sm text-muted-foreground">
-          <Link href="/" className="hover:text-primary transition-colors">← Back to home</Link>
+        <p className="mt-6 text-center text-sm text-muted-foreground">
+          <Link href="/" className="hover:text-primary transition-colors">
+            ← Back to store
+          </Link>
         </p>
+        <div className="mt-8 flex justify-center">
+          <PoweredByGorillaNexa />
+        </div>
       </motion.div>
     </div>
   );

@@ -1,10 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle2 } from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,10 +9,10 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
 const contactInfo = [
-  { icon: Mail, label: "Email", value: "hello@nexuslabs.com", href: "mailto:hello@nexuslabs.com" },
-  { icon: Phone, label: "Phone", value: "+1 (555) 010-0000", href: "tel:+15550100000" },
-  { icon: MapPin, label: "Address", value: "100 Innovation Drive, San Francisco, CA 94016" },
-  { icon: Clock, label: "Business Hours", value: "Mon - Fri: 9AM - 6PM PST" },
+  { icon: Mail, label: "Email", value: "hello@honestbeauty.com", href: "mailto:hello@honestbeauty.com" },
+  { icon: Phone, label: "Phone", value: "+250 788 000 000", href: "tel:+250788000000" },
+  { icon: MapPin, label: "Location", value: "Kigali, Rwanda" },
+  { icon: Clock, label: "Hours", value: "Mon – Sat, 9:00 – 18:00" },
 ];
 
 export default function ContactPage() {
@@ -52,69 +49,93 @@ export default function ContactPage() {
   };
 
   return (
-    <>
-      <section className="pt-32 pb-12">
-        <div className="mx-auto max-w-7xl container-px">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-3xl">
-            <Badge variant="secondary" className="mb-4">Contact Us</Badge>
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4">Let&apos;s <span className="text-gradient">talk</span></h1>
-            <p className="text-lg text-muted-foreground leading-relaxed">Have a question or need support? Fill out the form and our team will get back to you within 24 hours.</p>
-          </motion.div>
+    <div className="min-h-screen bg-[#FAFAFA] pt-20 dark:bg-zinc-950">
+      <section className="border-b border-zinc-200/80 px-2 py-8 sm:px-3 md:px-4 dark:border-zinc-800">
+        <div className="mx-auto max-w-3xl">
+          <h1 className="font-playfair text-3xl font-bold text-zinc-900 sm:text-4xl dark:text-zinc-50">
+            Contact
+          </h1>
+          <p className="mt-2 text-sm text-zinc-500">
+            Questions about a product or order? Send us a message — we typically reply within one business day.
+          </p>
         </div>
       </section>
 
-      <section className="pb-20">
-        <div className="mx-auto max-w-7xl container-px">
-          <div className="grid lg:grid-cols-2 gap-8">
-            <Card className="p-6 lg:p-8">
+      <section className="px-2 py-10 sm:px-3 md:px-4">
+        <div className="mx-auto grid max-w-5xl gap-10 lg:grid-cols-5 lg:gap-14">
+          <div className="lg:col-span-3">
+            <div className="rounded-2xl border border-zinc-200/80 bg-white p-6 sm:p-8 dark:border-zinc-800 dark:bg-zinc-900">
               {submitted ? (
-                <div className="flex flex-col items-center justify-center h-full text-center py-12">
-                  <CheckCircle2 className="h-16 w-16 text-success mb-4" />
-                  <h2 className="text-2xl font-bold mb-2">Message sent!</h2>
-                  <p className="text-muted-foreground mb-6">Thank you for reaching out. We&apos;ll respond within 24 hours.</p>
-                  <Button variant="outline" onClick={() => setSubmitted(false)}>Send another message</Button>
+                <div className="flex flex-col items-center py-10 text-center">
+                  <CheckCircle2 className="mb-4 h-12 w-12 text-emerald-600" />
+                  <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">Thank you</h2>
+                  <p className="mt-2 text-sm text-zinc-500">We&apos;ll be in touch shortly.</p>
+                  <Button variant="outline" className="mt-6 rounded-lg" onClick={() => setSubmitted(false)}>
+                    Send another message
+                  </Button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="space-y-2"><Label htmlFor="name">Name *</Label><Input id="name" name="name" placeholder="Your name" required /></div>
-                    <div className="space-y-2"><Label htmlFor="email">Email *</Label><Input id="email" name="email" type="email" placeholder="you@example.com" required /></div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Name</Label>
+                      <Input id="name" name="name" required className="rounded-lg" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email</Label>
+                      <Input id="email" name="email" type="email" required className="rounded-lg" />
+                    </div>
                   </div>
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="space-y-2"><Label htmlFor="phone">Phone</Label><Input id="phone" name="phone" placeholder="+1 555 010 0000" /></div>
-                    <div className="space-y-2"><Label htmlFor="subject">Subject</Label><Input id="subject" name="subject" placeholder="How can we help?" /></div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="phone">Phone (optional)</Label>
+                      <Input id="phone" name="phone" className="rounded-lg" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="subject">Subject (optional)</Label>
+                      <Input id="subject" name="subject" className="rounded-lg" />
+                    </div>
                   </div>
-                  <div className="space-y-2"><Label htmlFor="message">Message *</Label><Textarea id="message" name="message" placeholder="Tell us more..." rows={6} required /></div>
-                  <Button type="submit" size="lg" className="w-full" disabled={submitting}>
-                    {submitting ? "Sending..." : <><Send className="mr-2 h-4 w-4" />Send Message</>}
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Message</Label>
+                    <Textarea id="message" name="message" rows={5} required className="rounded-lg resize-none" />
+                  </div>
+                  <Button type="submit" className="w-full rounded-lg sm:w-auto" disabled={submitting}>
+                    {submitting ? "Sending…" : (
+                      <>
+                        <Send className="mr-2 h-4 w-4" />
+                        Send message
+                      </>
+                    )}
                   </Button>
                 </form>
               )}
-            </Card>
-
-            <div className="space-y-6">
-              <div className="grid sm:grid-cols-2 gap-4">
-                {contactInfo.map((info) => (
-                  <Card key={info.label} className="p-5">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary mb-3"><info.icon className="h-5 w-5" /></div>
-                    <h3 className="text-sm font-semibold mb-1">{info.label}</h3>
-                    {info.href ? (
-                      <a href={info.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">{info.value}</a>
-                    ) : (
-                      <p className="text-sm text-muted-foreground">{info.value}</p>
-                    )}
-                  </Card>
-                ))}
-              </div>
-              <Card className="overflow-hidden">
-                <div className="aspect-video bg-muted">
-                  <iframe title="Company Location" src="https://www.openstreetmap.org/export/embed.html?bbox=-122.52%2C37.70%2C-122.35%2C37.85&layer=mapnik&marker=37.7749%2C-122.4194" className="w-full h-full border-0" loading="lazy" />
-                </div>
-              </Card>
             </div>
           </div>
+
+          <aside className="lg:col-span-2">
+            <ul className="space-y-5">
+              {contactInfo.map((item) => (
+                <li key={item.label} className="flex gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
+                    <item.icon className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">{item.label}</p>
+                    {item.href ? (
+                      <a href={item.href} className="text-sm font-medium text-zinc-900 hover:text-[#b5651d] dark:text-zinc-100">
+                        {item.value}
+                      </a>
+                    ) : (
+                      <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{item.value}</p>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </aside>
         </div>
       </section>
-    </>
+    </div>
   );
 }

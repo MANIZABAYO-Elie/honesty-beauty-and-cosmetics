@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About Us",
-  description: "Learn about Nexus Labs — our story, mission, vision, values, and the team behind our premium tech products.",
+  description: "Learn about Honest Beauty and Cosmetics Ltd — our story, mission, and commitment to clean beauty.",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

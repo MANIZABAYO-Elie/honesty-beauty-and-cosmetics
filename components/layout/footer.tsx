@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Mail, Phone, MapPin, Instagram, Twitter, Facebook, Youtube } from "lucide-react";
+import { PoweredByGorillaNexa } from "@/components/brand/PoweredByGorillaNexa";
 
 const footerLinks = {
   "Quick Links": [
@@ -92,9 +93,12 @@ export function Footer() {
 
         {/* Bottom */}
         <div className="mt-12 pt-8 border-t border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-gray-500">
-            &copy; {new Date().getFullYear()} Honest Beauty and Cosmetics Ltd. All rights reserved.
-          </p>
+          <div className="text-center sm:text-left space-y-2">
+            <p className="text-sm text-gray-500">
+              &copy; {new Date().getFullYear()} Honest Beauty and Cosmetics Ltd. All rights reserved.
+            </p>
+            <PoweredByGorillaNexa variant="dark" className="text-gray-500" />
+          </div>
           <div className="flex items-center gap-2">
             {socialLinks.map((social) => (
               <a

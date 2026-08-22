@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 import type { Category } from "@/lib/types";
+import { invalidateCategoriesCache } from "@/hooks/use-categories";
 
 const slugify = (text: string) => text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
@@ -52,6 +53,7 @@ export default function AdminCategoriesPage() {
     if (!res.ok) { toast.error("Failed to delete category."); return; }
     toast.success("Category deleted.");
     setDeleteId(null);
+    invalidateCategoriesCache();
     fetchCategories();
   };
 
@@ -74,6 +76,7 @@ export default function AdminCategoriesPage() {
     toast.success(editing ? "Category updated." : "Category created.");
     setFormOpen(false);
     setEditing(null);
+    invalidateCategoriesCache();
     fetchCategories();
   };
 

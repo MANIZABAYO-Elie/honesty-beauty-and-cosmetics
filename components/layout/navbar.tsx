@@ -2,14 +2,13 @@
 
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { cn } from "@/lib/utils";
-
-interface Category { _id: string; name: string; slug?: string; }
+import { useCategories } from "@/hooks/use-categories";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -24,8 +23,10 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [catOpen, setCatOpen] = useState(false);
   const [mobileCatOpen, setMobileCatOpen] = useState(false);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const { categories } = useCategories();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const activeProductCategory = searchParams.get("category");
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,10 +36,6 @@ export function Navbar() {
   }, []);
 
   useEffect(() => { setMobileOpen(false); setCatOpen(false); }, [pathname]);
-
-  useEffect(() => {
-    fetch("/api/categories").then(r => r.json()).then(setCategories).catch(() => {});
-  }, []);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -50,6 +47,31 @@ export function Navbar() {
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, []);
+
+  const overHero = pathname === "/" && !scrolled;
+
+  const onProductsPage = pathname === "/products";
+  const filtersActive = Boolean(activeProductCategory || searchParams.get("search"));
+  const categoriesNavActive = onProductsPage && filtersActive;
+
+  const isLinkActive = (href: string) => {
+    if (href === "/products") {
+      return onProductsPage && !filtersActive;
+    }
+    return pathname === href;
+  };
+
+  const desktopNavLink = (href: string, active: boolean) =>
+    cn(
+      "px-4 py-2 text-sm font-medium rounded-lg transition-colors",
+      overHero
+        ? active
+          ? "text-white font-semibold"
+          : "text-white/85 hover:text-white"
+        : active
+          ? "text-[#EC4899] font-semibold"
+          : "text-[#1F2937] dark:text-gray-200 hover:text-[#EC4899] dark:hover:text-[#EC4899]"
+    );
 
   return (
     <header
@@ -72,9 +94,16 @@ export function Navbar() {
               height={120}
               priority
             />
-            <span className="font-bold text-sm leading-tight hidden sm:block">
+            <span
+              className={cn(
+                "hidden font-bold text-sm leading-tight sm:block",
+                overHero ? "text-white" : "text-foreground"
+              )}
+            >
               Honest Beauty<br />
-              <span className="text-[#EC4899] font-semibold text-xs">and Cosmetics Ltd</span>
+              <span className={cn("font-semibold text-xs", overHero ? "text-pink-300" : "text-[#EC4899]")}>
+                and Cosmetics Ltd
+              </span>
             </span>
           </Link>
 
@@ -84,12 +113,7 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={cn(
-                  "px-4 py-2 text-sm font-medium rounded-lg transition-colors",
-                  pathname === link.href
-                    ? "text-[#EC4899] font-semibold"
-                    : "text-[#1F2937] dark:text-gray-200 hover:text-[#EC4899] dark:hover:text-[#EC4899]"
-                )}
+                className={desktopNavLink(link.href, isLinkActive(link.href))}
               >
                 {link.label}
               </Link>
@@ -101,9 +125,13 @@ export function Navbar() {
                 onClick={() => setCatOpen(!catOpen)}
                 className={cn(
                   "flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-lg transition-colors",
-                  pathname.startsWith("/categories")
-                    ? "text-[#EC4899] font-semibold"
-                    : "text-[#1F2937] dark:text-gray-200 hover:text-[#EC4899] dark:hover:text-[#EC4899]"
+                  overHero
+                    ? categoriesNavActive
+                      ? "text-white font-semibold"
+                      : "text-white/85 hover:text-white"
+                    : categoriesNavActive
+                      ? "text-[#EC4899] font-semibold"
+                      : "text-[#1F2937] dark:text-gray-200 hover:text-[#EC4899] dark:hover:text-[#EC4899]"
                 )}
               >
                 Categories
@@ -113,10 +141,10 @@ export function Navbar() {
               {catOpen && (
                 <div className="absolute top-full left-0 mt-1 w-52 bg-white dark:bg-gray-950 border border-[#E5E7EB] dark:border-gray-800 rounded-xl shadow-lg py-1.5 animate-fade-in">
                   <Link
-                    href="/categories"
+                    href="/products"
                     className="block px-4 py-2 text-sm text-[#1F2937] dark:text-gray-200 hover:bg-[#EC4899]/5 hover:text-[#EC4899] font-medium"
                   >
-                    All Categories
+                    All products
                   </Link>
                   {categories.length > 0 && (
                     <div className="my-1 border-t border-[#E5E7EB] dark:border-gray-800" />
@@ -124,8 +152,13 @@ export function Navbar() {
                   {categories.map((cat) => (
                     <Link
                       key={cat._id}
-                      href={`/categories/${cat.slug ?? cat._id}`}
-                      className="block px-4 py-2 text-sm text-[#1F2937] dark:text-gray-200 hover:bg-[#EC4899]/5 hover:text-[#EC4899]"
+                      href={`/products?category=${cat.slug ?? cat._id}`}
+                      className={cn(
+                        "block px-4 py-2 text-sm hover:bg-[#EC4899]/5 hover:text-[#EC4899]",
+                        pathname === "/products" && activeProductCategory === cat.slug
+                          ? "text-[#EC4899] font-medium bg-[#EC4899]/5"
+                          : "text-[#1F2937] dark:text-gray-200"
+                      )}
                     >
                       {cat.name}
                     </Link>
@@ -138,12 +171,7 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={cn(
-                  "px-4 py-2 text-sm font-medium rounded-lg transition-colors",
-                  pathname === link.href
-                    ? "text-[#EC4899] font-semibold"
-                    : "text-[#1F2937] dark:text-gray-200 hover:text-[#EC4899] dark:hover:text-[#EC4899]"
-                )}
+                className={desktopNavLink(link.href, isLinkActive(link.href))}
               >
                 {link.label}
               </Link>
@@ -152,12 +180,26 @@ export function Navbar() {
 
           {/* Actions */}
           <div className="flex items-center gap-2">
-            <ThemeToggle />
-            <Button asChild size="sm" className="hidden md:inline-flex bg-[#7C3AED] hover:bg-[#6D28D9] text-white rounded-xl">
+            <ThemeToggle
+              className={overHero ? "text-white hover:bg-white/10 hover:text-white" : undefined}
+            />
+            <Button
+              asChild
+              size="sm"
+              className={cn(
+                "hidden rounded-xl md:inline-flex",
+                overHero
+                  ? "border border-white/35 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20"
+                  : "bg-[#7C3AED] text-white hover:bg-[#6D28D9]"
+              )}
+            >
               <Link href="/login">Admin Login</Link>
             </Button>
             <button
-              className="md:hidden h-9 w-9 flex items-center justify-center rounded-lg text-foreground"
+              className={cn(
+                "flex h-9 w-9 items-center justify-center rounded-lg md:hidden",
+                overHero ? "text-white" : "text-foreground"
+              )}
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
             >
@@ -175,7 +217,7 @@ export function Navbar() {
                 href={link.href}
                 className={cn(
                   "block px-4 py-2.5 text-sm font-medium rounded-lg transition-colors",
-                  pathname === link.href
+                  isLinkActive(link.href)
                     ? "bg-[#EC4899]/10 text-[#EC4899] font-semibold"
                     : "text-[#1F2937] dark:text-gray-200 hover:bg-[#EC4899]/5 hover:text-[#EC4899]"
                 )}
@@ -196,16 +238,21 @@ export function Navbar() {
               {mobileCatOpen && (
                 <div className="ml-4 mt-1 space-y-1 border-l-2 border-[#EC4899]/20 pl-3">
                   <Link
-                    href="/categories"
+                    href="/products"
                     className="block py-2 text-sm text-[#1F2937] dark:text-gray-200 hover:text-[#EC4899] font-medium"
                   >
-                    All Categories
+                    All products
                   </Link>
                   {categories.map((cat) => (
                     <Link
                       key={cat._id}
-                      href={`/categories/${cat.slug ?? cat._id}`}
-                      className="block py-2 text-sm text-[#1F2937] dark:text-gray-200 hover:text-[#EC4899]"
+                      href={`/products?category=${cat.slug ?? cat._id}`}
+                      className={cn(
+                        "block py-2 text-sm hover:text-[#EC4899]",
+                        pathname === "/products" && activeProductCategory === cat.slug
+                          ? "text-[#EC4899] font-medium"
+                          : "text-[#1F2937] dark:text-gray-200"
+                      )}
                     >
                       {cat.name}
                     </Link>
@@ -220,7 +267,7 @@ export function Navbar() {
                 href={link.href}
                 className={cn(
                   "block px-4 py-2.5 text-sm font-medium rounded-lg transition-colors",
-                  pathname === link.href
+                  isLinkActive(link.href)
                     ? "bg-[#EC4899]/10 text-[#EC4899] font-semibold"
                     : "text-[#1F2937] dark:text-gray-200 hover:bg-[#EC4899]/5 hover:text-[#EC4899]"
                 )}
