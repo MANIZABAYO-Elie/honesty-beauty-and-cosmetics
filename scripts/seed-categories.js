@@ -1,6 +1,25 @@
+const fs = require("fs");
+const path = require("path");
 const mongoose = require("mongoose");
 
-const MONGODB_URI = "mongodb+srv://manizabayoelie_db_user:3BnbFN76W2NivOAp@honesty-beauty-and-cosm.73b89ti.mongodb.net/honesty-beauty?appName=honesty-beauty-and-cosmetics-ltd-2026";
+const envPath = path.join(__dirname, "..", ".env");
+if (fs.existsSync(envPath)) {
+  for (const line of fs.readFileSync(envPath, "utf8").split("\n")) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+    const eq = trimmed.indexOf("=");
+    if (eq === -1) continue;
+    const key = trimmed.slice(0, eq).trim();
+    const value = trimmed.slice(eq + 1).trim();
+    if (!process.env[key]) process.env[key] = value;
+  }
+}
+
+const MONGODB_URI = process.env.MONGODB_URI?.trim();
+if (!MONGODB_URI) {
+  console.error("Set MONGODB_URI before running this script.");
+  process.exit(1);
+}
 
 const CategorySchema = new mongoose.Schema(
   { name: { type: String, required: true }, slug: { type: String, required: true, unique: true }, description: String, icon: String },

@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/providers/auth-provider";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
-import { PoweredByGorillaNexa } from "@/components/brand/PoweredByGorillaNexa";
+// import { PoweredByGorillaNexa } from "@/components/brand/PoweredByGorillaNexa";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -128,7 +128,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <LogOut className="h-4 w-4 mr-2" />
             Logout
           </Button>
-          <PoweredByGorillaNexa className="px-1 text-center sm:text-left" />
+          {/* <PoweredByGorillaNexa className="px-1 text-center sm:text-left" /> */}
         </div>
       </aside>
 
@@ -144,9 +144,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <ThemeToggle />
         </div>
         <div className="flex-1 p-4 sm:p-6 lg:p-8">{children}</div>
-        <footer className="lg:hidden border-t border-border px-4 py-4 bg-background">
+        {/* <footer className="lg:hidden border-t border-border px-4 py-4 bg-background">
           <PoweredByGorillaNexa className="text-center" />
-        </footer>
+        </footer> */}
       </div>
     </div>
   );
