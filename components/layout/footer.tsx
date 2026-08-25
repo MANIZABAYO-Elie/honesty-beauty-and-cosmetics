@@ -13,7 +13,6 @@ const footerLinks = {
   "Customer Service": [
     { href: "/contact", label: "Help Center" },
     { href: "/contact", label: "Returns & Exchanges" },
-    { href: "/contact", label: "Shipping Info" },
     { href: "/contact", label: "Size Guide" },
   ],
   "Collections": [
