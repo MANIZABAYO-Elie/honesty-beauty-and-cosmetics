@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { BrandLogo } from "@/components/brand/BrandLogo";
-import { PoweredByGorillaNexa } from "@/components/brand/PoweredByGorillaNexa";
+// import { PoweredByGorillaNexa } from "@/components/brand/PoweredByGorillaNexa";
 import { toast } from "sonner";
 import { useAuth } from "@/components/providers/auth-provider";
 
@@ -114,9 +114,9 @@ export default function LoginPage() {
             ← Back to store
           </Link>
         </p>
-        <div className="mt-8 flex justify-center">
+        {/* <div className="mt-8 flex justify-center">
           <PoweredByGorillaNexa />
-        </div>
+        </div> */}
       </motion.div>
     </div>
   );

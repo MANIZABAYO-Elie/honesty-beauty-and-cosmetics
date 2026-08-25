@@ -2,13 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import Category from "@/lib/models/Category";
 import { getSession } from "@/lib/auth";
+import { apiError } from "@/lib/api-error";
 
 export async function GET(req: NextRequest) {
-  await connectDB();
-  const search = req.nextUrl.searchParams.get("search");
-  const query = search ? { name: { $regex: search, $options: "i" } } : {};
-  const categories = await Category.find(query).sort({ name: 1 }).lean();
-  return NextResponse.json(categories);
+  try {
+    await connectDB();
+    const search = req.nextUrl.searchParams.get("search");
+    const query = search ? { name: { $regex: search, $options: "i" } } : {};
+    const categories = await Category.find(query).sort({ name: 1 }).lean();
+    return NextResponse.json(categories);
+  } catch (error) {
+    return apiError(error, "Failed to load categories");
+  }
 }
 
 export async function POST(req: NextRequest) {
