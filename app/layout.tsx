@@ -1,17 +1,11 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Poppins, Inter, Playfair_Display } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { AuthProvider } from "@/components/providers/auth-provider";
 import { Toaster } from "@/components/ui/sonner";
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
-  variable: "--font-poppins",
-});
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", weight: ["400", "600", "700", "800"] });
+// Using system-local font stacks via CSS variables (defined in globals.css)
+// to avoid remote Google Fonts fetch during production builds.
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://honestbeauty.com"),
@@ -44,7 +38,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.variable} ${inter.variable} ${playfair.variable} font-sans antialiased`}>
+      <body className={`font-sans antialiased`}>
         <ThemeProvider>
           <AuthProvider>
             {children}
