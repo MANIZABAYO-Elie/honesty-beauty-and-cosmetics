@@ -7,12 +7,15 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HERO_SLIDES } from "@/lib/hero-slides";
 
-const SLIDE_MS = 6000;
+const SLIDE_MS = 2000;
 const FADE_MS = 1400;
+const NAME_MS = 3000;
 
 export function HomeHero() {
   const [index, setIndex] = useState(0);
   const [ready, setReady] = useState(false);
+  const [nameIndex, setNameIndex] = useState(0);
+  const [nameMap, setNameMap] = useState<Record<string, string | null>>({});
 
   useEffect(() => {
     const preload = HERO_SLIDES.map(
@@ -32,6 +35,40 @@ export function HomeHero() {
       setIndex((prev) => (prev + 1) % HERO_SLIDES.length);
     }, SLIDE_MS);
     return () => clearInterval(id);
+  }, []);
+
+  // Rotate product names every NAME_MS and resolve slugs by fetching products
+  useEffect(() => {
+    const id = setInterval(() => setNameIndex((n) => n + 1), NAME_MS);
+    return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    // Fetch a moderate list of published products to resolve slugs for the hero names
+    fetch('/api/products?status=PUBLISHED&limit=200')
+      .then((r) => r.json())
+      .then(({ products }) => {
+        const map: Record<string, string | null> = {};
+        const available = (products ?? []) as any[];
+        const names = [
+          'Cidella',
+          'Queen Elizabeth Maybelline Color',
+          'Maybelline 22',
+          'Sun Cream',
+          'Tress Hair',
+          'Vaseline',
+        ];
+        for (const n of names) {
+          const found = available.find((p) => {
+            if (!p.name) return false;
+            const pn = p.name.toLowerCase();
+            return pn === n.toLowerCase() || pn.includes(n.toLowerCase());
+          });
+          map[n] = found ? found.slug ?? found._id ?? null : null;
+        }
+        setNameMap(map);
+      })
+      .catch(() => setNameMap({}));
   }, []);
 
   return (
@@ -91,6 +128,8 @@ export function HomeHero() {
                 Premium skincare, body care and hair care — honest ingredients, dermatologist-tested formulas,
                 made for everyday confidence.
               </p>
+
+              {/* Featured names removed per request */}
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <Button
                   asChild
