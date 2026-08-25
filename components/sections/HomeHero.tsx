@@ -79,7 +79,7 @@ export function HomeHero() {
               transition={{ duration: 0.7, delay: 0.1 }}
               className="max-w-xl lg:max-w-2xl"
             >
-              <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.25em] text-white/80">
+              <p className="mb-4 text-4xl font-semibold uppercase tracking-[0.25em] text-white/80">
                 Honest Beauty &amp; Cosmetics
               </p>
               <h1 className="font-playfair text-4xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { cn } from "@/lib/utils";
@@ -83,15 +83,16 @@ export function Navbar() {
       )}
     >
       <nav className="mx-auto max-w-7xl container-px">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-20 items-center justify-between">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0">
+          <Link href="/" className="flex items-center gap-4 shrink-0">
             <Image
               src="/company-logo.jpg"
               alt="Honest Beauty and Cosmetics Ltd"
-              width={120}
-              height={120}
+              width={80}
+              height={80}
+              className="h-20 w-20 object-contain"
               priority
             />
             <span
@@ -101,7 +102,7 @@ export function Navbar() {
               )}
             >
               Honest Beauty<br />
-              <span className={cn("font-semibold text-xs", overHero ? "text-pink-300" : "text-[#EC4899]")}>
+              <span className={cn("font-semibold text-xs", overHero ? "text-pink-300" : "text-[#EC4899]")}> 
                 and Cosmetics Ltd
               </span>
             </span>
@@ -134,35 +135,35 @@ export function Navbar() {
                       : "text-[#1F2937] dark:text-gray-200 hover:text-[#EC4899] dark:hover:text-[#EC4899]"
                 )}
               >
-                Categories
+                Products
                 <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", catOpen && "rotate-180")} />
               </button>
 
               {catOpen && (
-                <div className="absolute top-full left-0 mt-1 w-52 bg-white dark:bg-gray-950 border border-[#E5E7EB] dark:border-gray-800 rounded-xl shadow-lg py-1.5 animate-fade-in">
+                <div className="absolute top-full left-0 mt-1 w-80 bg-white dark:bg-gray-950 border border-[#E5E7EB] dark:border-gray-800 rounded-xl shadow-lg p-3 animate-fade-in">
                   <Link
                     href="/products"
-                    className="block px-4 py-2 text-sm text-[#1F2937] dark:text-gray-200 hover:bg-[#EC4899]/5 hover:text-[#EC4899] font-medium"
+                    className="block px-3 py-2 text-sm text-[#1F2937] dark:text-gray-200 hover:bg-[#EC4899]/5 hover:text-[#EC4899] font-medium rounded-md"
                   >
                     All products
                   </Link>
-                  {categories.length > 0 && (
-                    <div className="my-1 border-t border-[#E5E7EB] dark:border-gray-800" />
-                  )}
-                  {categories.map((cat) => (
-                    <Link
-                      key={cat._id}
-                      href={`/products?category=${cat.slug ?? cat._id}`}
-                      className={cn(
-                        "block px-4 py-2 text-sm hover:bg-[#EC4899]/5 hover:text-[#EC4899]",
-                        pathname === "/products" && activeProductCategory === cat.slug
-                          ? "text-[#EC4899] font-medium bg-[#EC4899]/5"
-                          : "text-[#1F2937] dark:text-gray-200"
-                      )}
-                    >
-                      {cat.name}
-                    </Link>
-                  ))}
+
+                  <div className="mt-2 grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {categories.map((cat) => (
+                      <Link
+                        key={cat._id}
+                        href={`/products?category=${cat.slug ?? cat._id}`}
+                        className={cn(
+                          "block px-3 py-1.5 text-sm rounded-md text-left truncate",
+                          pathname === "/products" && activeProductCategory === cat.slug
+                            ? "text-[#EC4899] font-medium bg-[#EC4899]/5"
+                            : "text-[#1F2937] dark:text-gray-200 hover:bg-[#EC4899]/5 hover:text-[#EC4899]"
+                        )}
+                      >
+                        {cat.name}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
@@ -180,6 +181,15 @@ export function Navbar() {
 
           {/* Actions */}
           <div className="flex items-center gap-2">
+            <a
+              href="https://wa.me/250728959122"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Contact on WhatsApp"
+              className="hidden md:inline-flex h-9 w-9 items-center justify-center rounded-full bg-green-500 text-white hover:bg-green-600"
+            >
+              <Phone className="h-4 w-4" />
+            </a>
             <ThemeToggle
               className={overHero ? "text-white hover:bg-white/10 hover:text-white" : undefined}
             />
@@ -275,6 +285,15 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
+
+            <a
+              href="https://wa.me/250728959122"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block px-4 py-2.5 text-sm font-medium text-green-600"
+            >
+              WhatsApp →
+            </a>
 
             <Link href="/login" className="block px-4 py-2.5 text-sm font-medium text-[#EC4899]">
               Admin Login →

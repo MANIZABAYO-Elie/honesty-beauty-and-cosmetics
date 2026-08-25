@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Package, ChevronRight, Mail, Tag } from "lucide-react";
+import { Package, ChevronRight, Mail, Tag, Phone } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -116,7 +116,11 @@ export default function ProductDetailPage() {
                 </dl>
               </Card>
               <div className="flex flex-col sm:flex-row gap-3">
-                <Button asChild size="lg"><Link href="/contact"><Mail className="mr-2 h-4 w-4" />Contact About This Product</Link></Button>
+                <Button asChild size="lg">
+                  <a href="https://wa.me/250728959122" target="_blank" rel="noopener noreferrer">
+                    <Phone className="mr-2 h-4 w-4" />Contact About This Product
+                  </a>
+                </Button>
                 <Button asChild size="lg" variant="outline"><Link href="/products">Back to Products</Link></Button>
               </div>
             </div>
