@@ -88,7 +88,7 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-4 shrink-0">
             <Image
-              src="/company-logo.jpg"
+              src="/uploads/company-logo.jpg"
               alt="Honest Beauty and Cosmetics Ltd"
               width={80}
               height={80}

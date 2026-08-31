@@ -21,7 +21,7 @@ export function BrandLogo({
   const content = (
     <>
       <Image
-        src="/company-logo.jpg"
+        src="/uploads/company-logo.jpg"
         alt="Honest Beauty and Cosmetics Ltd"
         width={imgSize}
         height={imgSize}

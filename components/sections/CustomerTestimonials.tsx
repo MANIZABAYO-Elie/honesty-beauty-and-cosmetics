@@ -7,7 +7,8 @@ const testimonials = [
   {
     name: "Agasaro Rosine",
     role: "Verified Customer",
-    image: "/Agasaro Rosine.jpg",
+    // use a descriptive filename so you can drop the real photo at this path
+    image: "/uploads/Agasaro Rosine.jpg",
     before: "Struggled with dull, uneven skin tone for years.",
     content:
       "After just 3 weeks using the brightening serum and moisturiser, my skin tone is so much more even and radiant. People keep asking what I'm doing differently!",
@@ -16,7 +17,7 @@ const testimonials = [
   {
     name: "Ishimwe Doreen",
     role: "Verified Customer",
-    image: "/Ishimwe Doreen.jpg",
+    image: "/uploads/Ishimwe Doreen.jpg",
     before: "Suffered from dry, flaky skin and brittle hair.",
     content:
       "The body butter and hair mask have completely transformed my routine. My skin stays hydrated all day and my hair has never looked this healthy and shiny.",
@@ -25,7 +26,7 @@ const testimonials = [
   {
     name: "Uwase Kevine",
     role: "Verified Customer",
-    image: "/uwase kevine.jpg",
+    image: "/uploads/uwase kevine.jpg",
     before: "Sensitive skin that reacted badly to most products.",
     content:
       "Finally found products that don't irritate my skin. The gentle cleanser and calming moisturiser have made such a difference — my skin feels calm, soft and glowing.",
@@ -74,6 +75,10 @@ export function CustomerTestimonials() {
                   src={t.image}
                   alt={`${t.name} transformation`}
                   className="h-64 w-full object-cover object-top"
+                  onError={(e) => {
+                    // fallback to a known safe image when the specific upload is missing or incorrect
+                    (e.currentTarget as HTMLImageElement).src = "/uploads/company-logo.jpg";
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-stone-900/50 to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-2">

@@ -39,7 +39,7 @@ export function Footer() {
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-3">
               <Image
-                src="/company-logo.jpg"
+                src="/uploads/company-logo.jpg"
                 alt="Honest Beauty and Cosmetics Ltd"
                 width={48}
                 height={48}
@@ -78,7 +78,7 @@ export function Footer() {
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-[#EC4899] shrink-0" />
-                <span>Musanze ,Muhoza sector, near GOICO Plaza</span>
+                <span>Musanze,Muhoza sector, near GOICO Plaza ,Maria merci building floor 01</span>
               </div>
             </div>
           </div>

@@ -9,9 +9,9 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
 const contactInfo = [
-  { icon: Mail, label: "Email", value: "hello@honestbeauty.com", href: "mailto:hello@honestbeauty.com" },
-  { icon: Phone, label: "Phone", value: "+250 788 000 000", href: "tel:+250788000000" },
-  { icon: MapPin, label: "Location", value: "Kigali, Rwanda" },
+  { icon: Mail, label: "Email", value: "niyigenasabira132@gmail.com", href: "mailto:niyigenasabira132@gmail.com" },
+  { icon: Phone, label: "Phone", value: "+250 795055771", href: "tel:+250795055771" },
+  { icon: MapPin, label: "Location", value: "Musanze,Muhoza sector, near GOICO Plaza ,Maria merci building floor 01" },
   { icon: Clock, label: "Hours", value: "Mon – Sat, 9:00 – 18:00" },
 ];
 

@@ -25,9 +25,9 @@ const navItems = [
 
 function AdminBrand({ compact }: { compact?: boolean }) {
   return (
-    <Link href="/admin/dashboard" className="flex items-center gap-2.5 min-w-0">
+      <Link href="/admin/dashboard" className="flex items-center gap-2.5 min-w-0">
       <Image
-        src="/company-logo.jpg"
+        src="/uploads/company-logo.jpg"
         alt="Honest Beauty and Cosmetics Ltd"
         width={compact ? 32 : 40}
         height={compact ? 32 : 40}
